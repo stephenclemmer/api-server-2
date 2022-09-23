@@ -22,7 +22,7 @@
     "test-watch": "jest --watchAll --verbose --coverage",
     "db:config": "sequelize init:config",
     "db:create": "sequelize db:create"
-    },
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stephenclemmer/api-server.git"

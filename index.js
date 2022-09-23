@@ -3,7 +3,7 @@
 require('dotenv').config();
 
 const { sequelizeDatabase } = require('./src/models');
-const { start } = require('./src/server.js');
+const { start } = require('./src/server');
 
 sequelizeDatabase.sync()
   .then(() => {
