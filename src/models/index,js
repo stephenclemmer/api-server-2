@@ -3,16 +3,32 @@
 require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
 
-const carsSchema = require('./cars.js');
+const peopleSchema = require('./people.js');
 const guitarsSchema = require('./guitars.js');
+
+const CollectionClass = require('./collection-class');
 
 const DATABASE_URL = process.env.NODE_ENV === 'test'
   ? 'sqlite:memory'
   : process.env.DATABASE_URL;
 
-const sequelizeDatabase = new Sequelize(DATABASE_URL);
+const sequelizeDatabase = new Sequelize(DATABASE_URL, {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+});
 
-const CarsModel = carsSchema(sequelizeDatabase, DataTypes);
+const PeopleModel = peopleSchema(sequelizeDatabase, DataTypes);
 const GuitarsModel = guitarsSchema(sequelizeDatabase, DataTypes);
 
-module.exports = {sequelizeDatabase, CarsModel, GuitarsModel};
+PeopleModel.hasMany(GuitarsModel);
+GuitarsModel.belongsTo(PeopleModel);
+
+module.exports = {
+  sequelizeDatabase,
+  peopleInterface: new CollectionClass(PeopleModel),
+  guitarsInterface: new CollectionClass(GuitarsModel),
+};

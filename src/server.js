@@ -7,13 +7,13 @@ const notFound = require('./error-handlers/404');
 const errorHandler = require ('./error-handlers/500');
 const logger = require('../src/middleware/logger');
 
-const carsRouter = require('./routes/cars');
+const peopleRouter = require('./routes/people');
 const guitarsRouter = require('./routes/guitars');
 const PORT = process.env.PORT || 3002;
 
 const app = express();
 app.use(express.json());
-app.use(carsRouter);
+app.use(peopleRouter);
 app.use(guitarsRouter);
 app.use(logger);
 
