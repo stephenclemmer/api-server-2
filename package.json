@@ -28,7 +28,7 @@
     "url": "git+https://github.com/stephenclemmer/api-server.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Stephen Clemmer",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/stephenclemmer/api-server/issues"

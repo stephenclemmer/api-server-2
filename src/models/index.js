@@ -12,14 +12,18 @@ const DATABASE_URL = process.env.NODE_ENV === 'test'
   ? 'sqlite:memory'
   : process.env.DATABASE_URL;
 
-const sequelizeDatabase = new Sequelize(DATABASE_URL, {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-});
+//   Uncomment for production; Comment out for Development
+// const sequelizeDatabase = new Sequelize(DATABASE_URL, {
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false,
+//     },
+//   },
+// });
+
+// Uncomment for Development; Comment Out for Production
+const sequelizeDatabase = new Sequelize(DATABASE_URL);
 
 const PeopleModel = peopleSchema(sequelizeDatabase, DataTypes);
 const GuitarsModel = guitarsSchema(sequelizeDatabase, DataTypes);
