@@ -19,7 +19,7 @@ app.use(logger);
 app.use(peopleRouter);
 app.use(guitarsRouter);
 
-router.get('/', (req, res, next) => {
+app.get('/', (req, res, next) => {
   res.status(200).send('Hello World');
 });
 

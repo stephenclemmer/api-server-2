@@ -9,7 +9,7 @@ const guitarsSchema = require('./guitars.js');
 const CollectionClass = require('./collection-class');
 
 const DATABASE_URL = process.env.NODE_ENV === 'test'
-  ? 'sqlite:memory'
+  ? 'sqlite::memory'
   : process.env.DATABASE_URL;
 
 //   Uncomment for production; Comment out for Development

@@ -28,7 +28,7 @@ describe ('API Server', () => {
 
   it('handles root path', async () => {
     const response = await request.get('/');
-    expect(response.status).toBe(200);
+    expect(response.status).toEqual(200);
     expect(response.text).toBeTruthy();
     expect(response.text).toEqual('Hello World');
   });
