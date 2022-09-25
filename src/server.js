@@ -11,13 +11,15 @@ const peopleRouter = require('./routes/people');
 const guitarsRouter = require('./routes/guitars');
 const PORT = process.env.PORT || 3002;
 
+const router = express.Router();
+
 const app = express();
 app.use(express.json());
+app.use(logger);
 app.use(peopleRouter);
 app.use(guitarsRouter);
-app.use(logger);
 
-app.get('/', (req, res, next) => {
+router.get('/', (req, res, next) => {
   res.status(200).send('Hello World');
 });
 

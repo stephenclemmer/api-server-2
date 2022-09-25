@@ -1,13 +1,13 @@
 'use strict';
 
 class CollectionClass {
-  constructor(collection) {
-    this.collection = collection;
+  constructor(model) {
+    this.model = model;
   }
 
   async create(json) {
     try {
-      let record = await this.collection.create(json);
+      let record = await this.model.create(json);
       return record;
     } catch (err) {
       console.err('we have an error', err);
@@ -19,9 +19,9 @@ class CollectionClass {
     try {
       let record;
       if (id) {
-        record = await this.collection.findOne({ where: {id} });
+        record = await this.model.findOne({ where: {id} });
       } else {
-        record = await this.collection.findAll();
+        record = await this.model.findAll();
       }
       return record;
     } catch (err) {
@@ -32,7 +32,7 @@ class CollectionClass {
 
   async readManyToOne(id, collection) {
     try {
-      let record = await this.collection.findOne({ where: {id} });
+      let record = await this.model.findOne({ where: {id} });
       return record;
     } catch(err) {
       console.error('we have an err', err);
@@ -42,8 +42,8 @@ class CollectionClass {
 
   async update(data, id) {
     try {
-      await this.collection.update(data, {where: {id}});
-      let record = await this.collection.findOne({ where: {id} });
+      await this.model.update(data, {where: {id}});
+      let record = await this.model.findOne({ where: {id} });
       return record;
     } catch (err){
       console.error('we have an err', err);
@@ -53,7 +53,7 @@ class CollectionClass {
 
   async delete(id){
     try {
-      await this.collection.destroy({ where: {id} });
+      await this.model.destroy({ where: {id} });
       return 'Record Deleted';
     } catch (err) {
       console.error('we have an err', err);

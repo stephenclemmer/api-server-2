@@ -2,12 +2,12 @@
 
 const express = require('express');
 const router = express.Router();
-const { PeopleModel } = require('../models');
+const { peopleInterface } = require('../models');
 const validator = require('../middleware/validator');
 
 // Create
 router.post('/people', validator, async (req, res, send) => {
-  const newPerson = await PeopleModel.create(req.body);
+  const newPerson = await peopleInterface.create(req.body);
   console.log('new person', newPerson);
   res.status(200).send(newPerson);
 });
@@ -15,7 +15,7 @@ router.post('/people', validator, async (req, res, send) => {
 // Read
 router.get('/people', async (req, res, next) => {
   try {
-    let person = await PeopleModel.findAll();
+    let person = await peopleInterface.read();
     res.status(200).send(person);
   } catch (error) {
     next(error);
@@ -26,11 +26,7 @@ router.get('/people', async (req, res, next) => {
 router.get('/people/:id', async (req, res, next) => {
   try {
     let personId = req.params.id;
-    let person = await PeopleModel.findAll({
-      where: {
-        id: personId,
-      },
-    });
+    let person = await peopleInterface.read(personId);
     res.status(200).send(person);
   } catch (error) {
     next(error);
@@ -42,11 +38,7 @@ router.put('/people/:id', async (req, res, next) => {
   try {
     let personId = req.params.id;
     let data = req.body;
-    let updatedPerson = await PeopleModel.update(data, {
-      where: {
-        id: personId,
-      },
-    });
+    let updatedPerson = await peopleInterface.update(data, personId);
     res.status(201).send(updatedPerson);
   } catch (error) {
     next(error);
@@ -57,11 +49,7 @@ router.put('/people/:id', async (req, res, next) => {
 router.delete('/people/:id', async (req, res, next) => {
   try {
     let personId = req.params.id;
-    await PeopleModel.destroy({
-      where: {
-        id: personId,
-      },
-    });
+    await peopleInterface.delete(personId);
     res.status(200).send('Person Deleted');
   } catch (error) {
     next(error);
